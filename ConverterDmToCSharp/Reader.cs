@@ -5,16 +5,23 @@ public class Reader
   private readonly string myText;
   private int myIndex;
 
-  public bool IsEof => myIndex >= myText.Length;
-
   public Reader(string text)
   {
     myText = text;
     myIndex = 0;
   }
 
-  public char Peek() => myText[myIndex];
-  public char Next() => myText[myIndex++];
+  public bool IsEof => myIndex >= myText.Length;
+
+  public char Peek()
+  {
+    return myText[myIndex];
+  }
+
+  public char Next()
+  {
+    return myText[myIndex++];
+  }
 
   public bool TryPeek(out char ch)
   {

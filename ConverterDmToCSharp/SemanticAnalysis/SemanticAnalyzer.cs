@@ -1,4 +1,6 @@
-﻿namespace ConverterDmToCSharp;
+﻿using ConverterDmToCSharp.Parsing;
+
+namespace ConverterDmToCSharp.SemanticAnalysis;
 
 public class SemanticAnalyzer
 {

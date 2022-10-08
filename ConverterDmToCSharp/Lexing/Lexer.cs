@@ -1,15 +1,14 @@
 ﻿using System.Text;
 
-namespace ConverterDmToCSharp;
+namespace ConverterDmToCSharp.Lexing;
 
 public class Lexer
 {
+  private readonly Queue<Token> myQueue = new();
   private readonly Reader myReader;
-  private int myPrevIndentLevel;
   private bool isNewLine;
   private bool myIsFirstLastDedent;
-
-  private readonly Queue<Token> myQueue = new();
+  private int myPrevIndentLevel;
 
   public Lexer(Reader reader)
   {
@@ -86,23 +85,14 @@ public class Lexer
 
       Token token;
       if (currentIndentLevel > myPrevIndentLevel)
-      {
         token = Token.Indent;
-      }
       else if (currentIndentLevel < myPrevIndentLevel)
-      {
         token = Token.Dedent;
-      }
       else
-      {
         return Next();
-      }
 
       var count = Math.Abs(currentIndentLevel - myPrevIndentLevel);
-      for (var i = 0; i < count; i++)
-      {
-        myQueue.Enqueue(token);
-      }
+      for (var i = 0; i < count; i++) myQueue.Enqueue(token);
 
       myPrevIndentLevel = currentIndentLevel;
       return myQueue.Dequeue();
